@@ -3,13 +3,13 @@ package com.swelist.swelistnaija.domian;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.xml.stream.Location;
 import java.time.Instant;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
 @Setter
+@Table(name = "jobs")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
