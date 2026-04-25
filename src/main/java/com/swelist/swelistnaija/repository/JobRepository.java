@@ -10,7 +10,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
-public interface JoRepository extends JpaRepository<Job, Long> {
+public interface JobRepository extends JpaRepository<Job, Long> {
     Optional<Job> findByApplicationUrl(String applicationUrl);
     List<Job> findByIsActiveTrueAndExpiresAtAfter(Instant now);
     @Modifying
