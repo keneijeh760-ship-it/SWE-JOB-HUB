@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.List;
 
 
 @Entity
@@ -29,7 +30,7 @@ public class Subscriber {
     private boolean isActive;
     @Column(name = "role_preferences", columnDefinition = "text[]")
     @Enumerated(EnumType.STRING)
-    private RolePrefernce rolePreferences;
+    private List<RolePrefernce> rolePreferences;
     @Enumerated(EnumType.STRING)
     @Column(name = "location_preference", nullable = false)
     private LocationPreference locationPreference;
