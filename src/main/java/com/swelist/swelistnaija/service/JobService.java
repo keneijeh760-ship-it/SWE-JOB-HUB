@@ -16,13 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class JobService {
-    private JobRepository jobRepository;
+    private final JobRepository jobRepository;
 
     public Job ingestJob(JobIngestRequest request){
         Job url = jobRepository.findByApplicationUrl(request.getApplicationUrl())
-                .orElseThrow(()-> new RuntimeException("Job Not Found"));
+                .orElse(null);
 
-        if (!url.getApplicationUrl().isEmpty()){
+        if (url != null){
             url.setExpiresAt(Instant.now().plus(14, ChronoUnit.DAYS));
             url.setActive(true);
             jobRepository.save(url);
