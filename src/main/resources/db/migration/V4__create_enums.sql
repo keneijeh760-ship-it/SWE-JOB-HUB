@@ -28,8 +28,10 @@ CREATE TYPE experience_level_enum AS ENUM (
 
 ALTER TABLE subscribers
     DROP CONSTRAINT chk_location_preference,
+    ALTER COLUMN location_preference DROP DEFAULT,
     ALTER COLUMN location_preference TYPE location_preference_enum
-        USING location_preference::location_preference_enum;
+        USING location_preference::location_preference_enum,
+    ALTER COLUMN location_preference SET DEFAULT 'ALL';
 
 ALTER TABLE jobs
     ALTER COLUMN role_category TYPE role_preference_enum

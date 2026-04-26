@@ -19,8 +19,7 @@ public class EmailService {
 
     private final RestClient restClient;
     private final EmailLogRepository emailLogRepository;
-    private final SubscriberService subscriberService;
-    private final EmailService emailService;
+
 
     @Value("${resend.api.key}")
     private String resendApiKey;
@@ -29,9 +28,9 @@ public class EmailService {
 
         List<Job> filteredJobs = jobs.stream()
                 .filter(job -> subscriber.getRolePreferences().contains(RolePreference.ALL)
-                        || subscriber.getRolePreferences().contains(job.getTitle()))
+                        || subscriber.getRolePreferences().contains(job.getRoleCategory()))
                 .filter(job -> subscriber.getLocationPreference() == LocationPreference.ALL
-                        || subscriber.getLocationPreference().name().equalsIgnoreCase(job.getCountry().toString())
+                        || subscriber.getLocationPreference().name().equalsIgnoreCase(job.getCountry())
                         || (subscriber.getLocationPreference() == LocationPreference.REMOTE && job.isRemote()))
                 .toList();
 
