@@ -67,6 +67,10 @@ public class JobService {
         return new BatchIngestResponse(saved, failed);
     }
 
+    public List<Job> getActiveJobsForDigest() {
+        return jobRepository.findByIsActiveTrueAndExpiresAtAfter(Instant.now());
+    }
+
 
 
 

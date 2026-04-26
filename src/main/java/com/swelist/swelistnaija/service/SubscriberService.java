@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -51,8 +52,15 @@ public class SubscriberService {
                 .orElseThrow(() -> new RuntimeException("Subscriber not found"));
 
         subject.setActive(false);
-        subject.setSubscribedAt(Instant.now());
+        subject.setUnsubscribedAt(Instant.now());
        return  subscriberRepository.save(subject);
+    }
+
+    public List<Subscriber> getActiveVerifiedSubscribers(){
+        List<Subscriber> active = subscriberRepository.findByIsVerifiedTrueAndIsActiveTrue();
+        return active;
+
+
     }
 
 
