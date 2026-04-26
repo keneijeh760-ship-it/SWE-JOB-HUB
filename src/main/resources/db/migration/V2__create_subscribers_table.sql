@@ -1,5 +1,5 @@
 CREATE TABLE subscribers (
-    id                    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id BIGSERIAL PRIMARY KEY,
     email                 VARCHAR(255)             NOT NULL,
     is_verified           BOOLEAN                  NOT NULL DEFAULT FALSE,
     is_active             BOOLEAN                  NOT NULL DEFAULT TRUE,
