@@ -1,6 +1,6 @@
 package com.swelist.swelistnaija.domian;
 
-public enum RolePrefernce {
+public enum RolePreference {
     FRONTEND,
     BACKEND,
     FULL_STACK,

@@ -30,7 +30,7 @@ public class Subscriber {
     private boolean isActive;
     @Column(name = "role_preferences", columnDefinition = "text[]")
     @Enumerated(EnumType.STRING)
-    private List<RolePrefernce> rolePreferences;
+    private List<RolePreference> rolePreferences;
     @Enumerated(EnumType.STRING)
     @Column(name = "location_preference", nullable = false)
     private LocationPreference locationPreference;

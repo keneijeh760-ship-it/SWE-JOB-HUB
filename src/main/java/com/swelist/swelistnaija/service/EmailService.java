@@ -28,7 +28,7 @@ public class EmailService {
     public void sendDigest(Subscriber subscriber, List<Job> jobs) {
 
         List<Job> filteredJobs = jobs.stream()
-                .filter(job -> subscriber.getRolePreferences().contains(RolePrefernce.ALL.ALL)
+                .filter(job -> subscriber.getRolePreferences().contains(RolePreference.ALL)
                         || subscriber.getRolePreferences().contains(job.getTitle()))
                 .filter(job -> subscriber.getLocationPreference() == LocationPreference.ALL
                         || subscriber.getLocationPreference().name().equalsIgnoreCase(job.getCountry().toString())

@@ -1,7 +1,8 @@
 package com.swelist.swelistnaija.dto;
 
 import com.swelist.swelistnaija.domian.LocationPreference;
-import com.swelist.swelistnaija.domian.RolePrefernce;
+import com.swelist.swelistnaija.domian.RolePreference;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 public class SubscribeRequest {
     private String email;
-    private List<RolePrefernce> rolePreferences;
+    private List<RolePreference> rolePreferences;
     private LocationPreference locationPreference;
 }
