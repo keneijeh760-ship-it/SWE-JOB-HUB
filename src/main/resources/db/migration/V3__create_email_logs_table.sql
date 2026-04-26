@@ -1,6 +1,6 @@
 CREATE TABLE email_logs (
-    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    subscriber_id       UUID                     NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
+    subscriber_id BIGINT NOT NULL,
     sent_at             TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
     job_count           INTEGER                  NOT NULL DEFAULT 0,
     status              VARCHAR(50)              NOT NULL,

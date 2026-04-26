@@ -1,7 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TABLE jobs (
-    id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id BIGSERIAL PRIMARY KEY,
     title            VARCHAR(255)        NOT NULL,
     company          VARCHAR(255)        NOT NULL,
     location         VARCHAR(255),

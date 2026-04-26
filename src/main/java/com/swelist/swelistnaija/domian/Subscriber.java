@@ -2,6 +2,8 @@ package com.swelist.swelistnaija.domian;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 import java.util.List;
@@ -29,7 +31,7 @@ public class Subscriber {
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
     @Column(name = "role_preferences", columnDefinition = "text[]")
-    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.ARRAY)
     private List<RolePreference> rolePreferences;
     @Enumerated(EnumType.STRING)
     @Column(name = "location_preference", nullable = false)

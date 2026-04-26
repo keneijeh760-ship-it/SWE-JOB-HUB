@@ -28,10 +28,12 @@ public class Job {
     @Column(nullable = false, name = "location")
     private String location;
     @Column(nullable = false, name = "country")
-    @Enumerated(EnumType.STRING)
-    private LocationPreference country;
+    private String  country;
     @Column(name = "is_remote", nullable = false)
     private boolean isRemote;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role_category")
+    private RolePreference roleCategory;
     @Column(name = "experience_level", nullable = false)
     private ExperienceLevel  experienceLevel;
     @Column(name = "application_url", nullable = false)
