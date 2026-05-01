@@ -17,9 +17,10 @@ def scrape_remotive():
             })
     except Exception as e:
         print(f"Remotive scrape failed: {e}")
+    print(f"Remotive: fetched {len(results)} jobs")
     return results
 
-    print(f"Remotive: fetched {len(results)} jobs")
+
 
 
 

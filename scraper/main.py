@@ -1,16 +1,31 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from scrapers.remotive import scrape_remotive
+from scrapers.adzuna import adzuna_scaper
+from scrapers.github_repos import scrape_github
+from scrapers.jobberman import jobberman_scaper
+from core.normalizer import normalizer
+from core.poster import poster
+
+from dotenv import load_dotenv
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+load_dotenv()
+
+def main():
+    raw_jobs = []
+    raw_jobs.extend(scrape_remotive())
+
+    raw_jobs.extend(scrape_github())
+    raw_jobs.extend(jobberman_scaper())
+    raw_jobs.extend(adzuna_scaper())
+
+    normalized_jobs = [normalizer(job) for job in raw_jobs]
+
+    poster(normalized_jobs)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+main()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
+
