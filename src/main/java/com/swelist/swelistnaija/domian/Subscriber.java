@@ -28,7 +28,7 @@ public class Subscriber {
     private boolean isActive;
     @Column(name = "role_preferences", columnDefinition = "text[]")
     @JdbcTypeCode(SqlTypes.ARRAY)
-    private List<RolePreference> rolePreferences;
+    private List<String> rolePreferences;  // change from List<RolePreference> to List<String>
     @Enumerated(EnumType.STRING)
     @Column(name = "location_preference", nullable = false)
     private LocationPreference locationPreference;
