@@ -14,11 +14,7 @@ import java.time.Instant;
 @Builder
 public class EmailLog {
     @Id
-    @SequenceGenerator(name = "emaillog_Id",
-            sequenceName = "emaillog_Id",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "emaillog_Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subscriber_id", nullable = false)
