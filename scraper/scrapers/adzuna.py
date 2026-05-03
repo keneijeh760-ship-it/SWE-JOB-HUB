@@ -11,7 +11,7 @@ app_key = os.getenv("ADZUNA_APP_KEY")
 def adzuna_scaper():
     results = []
 
-    countries = ["ng", "gb", "us", "ca"]
+    countries = ["gb", "us", "ca"]
 
     for country in countries:
         try:
