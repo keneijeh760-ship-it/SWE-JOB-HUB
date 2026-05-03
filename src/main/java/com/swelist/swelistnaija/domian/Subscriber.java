@@ -18,11 +18,7 @@ import java.util.List;
 @Builder
 public class Subscriber {
     @Id
-    @SequenceGenerator(name = "subscriber_Id",
-            sequenceName = "subscriber_Id",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "subscriber_Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false, unique = true)
     private String email;
