@@ -25,15 +25,16 @@ public class Job {
     private String title;
     @Column(nullable = false, name = "company")
     private String company;
-    @Column(nullable = false, name = "location")
+    @Column(name = "location")
     private String location;
-    @Column(nullable = false, name = "country")
+    @Column(name = "country")
     private String  country;
     @Column(name = "is_remote", nullable = false)
     private boolean isRemote;
     @Enumerated(EnumType.STRING)
     @Column(name = "role_category")
     private RolePreference roleCategory;
+    @Enumerated(EnumType.STRING)
     @Column(name = "experience_level", nullable = false)
     private ExperienceLevel  experienceLevel;
     @Column(name = "application_url", nullable = false)
