@@ -45,7 +45,7 @@ public class SubscriberService {
         Subscriber verify = subscriberRepository.findByVerificationToken(token)
                 .orElseThrow(() -> new RuntimeException("Verification token not found"));
         verify.setVerified(true);
-        verify.setVerificationToken(null);
+         
         return subscriberRepository.save(verify);
     }
 
