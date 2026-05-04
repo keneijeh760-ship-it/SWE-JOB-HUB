@@ -15,11 +15,7 @@ import java.time.Instant;
 @Builder
 public class Job {
     @Id
-    @SequenceGenerator(name = "job_Id",
-            sequenceName = "job_Id",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "job_Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false, name = "title")
     private String title;
