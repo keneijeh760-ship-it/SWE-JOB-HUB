@@ -34,3 +34,6 @@ build/
 .env
 fullchain.pem
 privkey.pem
+.env
+fullchain.pem
+privkey.pem
