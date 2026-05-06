@@ -24,11 +24,35 @@ public class EmailService {
     @Value("${resend.api.key}")
     private String resendApiKey;
 
+    public void sendVerificationEmail(Subscriber subscriber) {
+    String verifyUrl = "https://swehub.name.ng/api/subscribers/verify?token=" 
+        + subscriber.getVerificationToken();
+    String body = "<h2>Verify your email</h2>"
+        + "<p>Click the link below to start receiving daily SWE jobs:</p>"
+        + "<a href='" + verifyUrl + "'>Verify Email</a>";
+    try {
+        restClient.post()
+            .uri("/emails")
+            .body(new ResendRequest(
+                "noreply@swehub.name.ng",
+                subscriber.getEmail(),
+                "Verify your SWE Hub subscription",
+                body
+            ))
+            .retrieve()
+            .body(ResendResponse.class);
+        log.info("Verification email sent to {}", subscriber.getEmail());
+    } catch (Exception e) {
+        log.error("Failed to send verification email to {}", subscriber.getEmail(), e);
+    }
+}
+
     public void sendDigest(Subscriber subscriber, List<Job> jobs) {
 
         List<Job> filteredJobs = jobs.stream()
-                .filter(job -> subscriber.getRolePreferences().contains(RolePreference.ALL)
-                        || subscriber.getRolePreferences().contains(job.getRoleCategory()))
+                .filter(job -> subscriber.getRolePreferences().contains("ALL")
+                        || job.getRoleCategory() == null
+                        || subscriber.getRolePreferences().contains(job.getRoleCategory().name())) 
                 .filter(job -> subscriber.getLocationPreference() == LocationPreference.ALL
                         || subscriber.getLocationPreference().name().equalsIgnoreCase(job.getCountry())
                         || (subscriber.getLocationPreference() == LocationPreference.REMOTE && job.isRemote()))
@@ -44,7 +68,7 @@ public class EmailService {
             ResendResponse response = restClient.post()
                     .uri("/emails")
                     .body(new ResendRequest(
-                            "digest@yourclub.com",
+                            "noreply@swehub.name.ng",
                             subscriber.getEmail(),
                             "Your Daily CS Internship Digest",
                             emailBody
@@ -90,7 +114,7 @@ public class EmailService {
 
         body.append("<hr/>")
                 .append("<p style='font-size:12px;'>")
-                .append("<a href='https://yourclub.com/unsubscribe?token=")
+                .append("<a href='https://swehub.name.ng/api/subscribers/unsubscribe?token=")
                 .append(subscriber.getUnsubscribeToken())
                 .append("'>Unsubscribe</a></p>");
 

@@ -1,5 +1,7 @@
 package com.swelist.swelistnaija.controller;
 
+import com.swelist.swelistnaija.service.DigestScheduler;
+import java.net.URI;
 import com.swelist.swelistnaija.domian.Subscriber;
 import com.swelist.swelistnaija.dto.SubscribeRequest;
 import com.swelist.swelistnaija.service.SubscriberService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class SubscriptionController {
 
     private final SubscriberService subscriberService;
+    private final DigestScheduler digestScheduler;
 
     @PostMapping("/subscribe")
     public ResponseEntity<Subscriber> subscribe(@RequestBody SubscribeRequest request) {
@@ -22,10 +25,10 @@ public class SubscriptionController {
     }
 
     @GetMapping("/verify")
-    public ResponseEntity<Subscriber> verify (@RequestParam String token){
-
-        Subscriber verification = subscriberService.verifyEmail(token);
-        return ResponseEntity.ok(verification);
+    public ResponseEntity<Void> verify(@RequestParam String token){
+        subscriberService.verifyEmail(token);
+        URI location = URI.create("https://swe-hub-frontend.vercel.app");
+    return ResponseEntity.status(HttpStatus.FOUND).location(location).build();
     }
 
     @GetMapping("/unsubscribe")
@@ -34,5 +37,10 @@ public class SubscriptionController {
         return ResponseEntity.ok("You have been unsubscribed successfully");
     }
 
+    @PostMapping("/trigger-digest")
+    public ResponseEntity<String> triggerDigest() {
+       digestScheduler.runDailyDigest();
+       return ResponseEntity.ok("Digest triggered!");
+}
 
 }
