@@ -4,6 +4,7 @@ import com.swelist.swelistnaija.domian.RolePreference;
 import com.swelist.swelistnaija.domian.LocationPreference;
 import com.swelist.swelistnaija.domian.Subscriber;
 import com.swelist.swelistnaija.dto.SubscribeRequest;
+import com.swelist.swelistnaija.exceptionhandlers.IllegalStateException;
 import com.swelist.swelistnaija.repository.SubscriberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class SubscriberService {
     public Subscriber subscribe(SubscribeRequest request) {
         Optional<Subscriber> email = subscriberRepository.findByEmail(request.getEmail());
         if (email.isPresent()) {
-            throw new RuntimeException("Email already subscribed");
+            throw new IllegalStateException("Email already subscribed");
         }
         Subscriber newSubscriber = Subscriber.builder()
                 .email(request.getEmail())
