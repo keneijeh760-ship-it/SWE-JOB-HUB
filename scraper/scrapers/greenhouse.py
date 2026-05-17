@@ -5,7 +5,8 @@ import os
 load_dotenv()
 
 API_KEY = os.getenv("REED_API_KEY")
-
+# Add this temporarily at the top of reed.py
+print(f"API KEY: {API_KEY}")
 KEYWORDS = [
     "software engineer",
     "developer",
@@ -30,7 +31,8 @@ def scrape_reed():
                     "locationName": "United Kingdom",
                     "resultsToTake": 100
                 },
-                auth=(API_KEY, "")
+                auth=(API_KEY, ""),
+                timeout = 30
             )
             data = response.json()
             jobs = data["results"]

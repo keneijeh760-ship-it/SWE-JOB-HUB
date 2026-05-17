@@ -6,6 +6,7 @@ from scrapers.jobberman import jobberman_scaper
 from core.normalizer import normalizer
 from core.poster import poster
 from scrapers.my_jobmag import scrape_myjobmag
+from scrapers.greenhouse import scrape_reed
 
 from dotenv import load_dotenv
 
@@ -14,10 +15,9 @@ load_dotenv()
 
 def main():
     raw_jobs = []
-    raw_jobs.extend(scrape_remotive())
-    raw_jobs.extend(scrape_myjobmag())
+    raw_jobs.extend(scrape_reed())
     raw_jobs.extend(scrape_github())
-    raw_jobs.extend(jobberman_scaper())
+    raw_jobs.extend(scrape_remotive())
 
 
     normalized_jobs = [normalizer(job) for job in raw_jobs]

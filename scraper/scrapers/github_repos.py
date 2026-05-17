@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-
+import re
 
 def scrape_github():
     url = "https://raw.githubusercontent.com/SimplifyJobs/Summer2026-Internships/refs/heads/dev/README.md"
@@ -8,21 +8,20 @@ def scrape_github():
     soup = BeautifulSoup(response.text, "html.parser")
 
     jobs = []
+    last_company = ""
 
     for row in soup.find_all("tr"):
         cols = row.find_all("td")
-        if len(cols) < 3:
+        if len(cols) < 4:
             continue
 
         company_td = cols[0]
         role_td = cols[1]
         location_td = cols[2]
-        application_td = cols[3] if len(cols) > 3 else None
+        application_td = cols[3]
 
-        # Skip continuation rows (↳)
         company_text = company_td.get_text(strip=True)
         if company_text == "↳":
-            # Use last known company
             company_text = last_company
         else:
             last_company = company_text
@@ -30,16 +29,20 @@ def scrape_github():
         role = role_td.get_text(strip=True)
         location = location_td.get_text(strip=True)
 
-        # Get application URL
-        url_tag = application_td.find("a") if application_td else None
-        app_url = url_tag["href"] if url_tag else None
+        # Find application URL - skip simplify links
+        app_url = None
+        for a_tag in application_td.find_all("a"):
+            href = a_tag.get("href", "")
+            if href and "simplify.jobs" not in href.lower():
+                app_url = href
+                break
 
-        if app_url and "simplify" not in app_url.lower():
+        if app_url:
             jobs.append({
                 "company": company_text,
-                "role": role,
+                "title": role,
                 "location": location,
-                "applicationUrl": app_url,
+                "applicationUrl": app_url
             })
 
     print(f"Github: fetched {len(jobs)} jobs")
