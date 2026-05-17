@@ -24,7 +24,7 @@ public class CleanUpService {
 
     @Scheduled(cron = "0 0 3 * * SUN", zone = "Africa/Lagos")
     public void purgeOldJobs() {
-        Instant cutoff = Instant.now().minus(30, ChronoUnit.DAYS);
+        Instant cutoff = Instant.now().minus(1, ChronoUnit.DAYS);
         int count = jobRepository.deleteByIsActiveFalseAndExpiresAtBefore(cutoff);
         log.info("Purged {} old jobs", count);
     }

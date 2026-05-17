@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class JobService {
                 .orElse(null);
 
         if (url != null){
-            url.setExpiresAt(Instant.now().plus(14, ChronoUnit.DAYS));
+            url.setExpiresAt(Instant.now().plus(1, ChronoUnit.DAYS));
             url.setActive(true);
             jobRepository.save(url);
             return url;
@@ -36,7 +37,7 @@ public class JobService {
                     .title(request.getTitle())
                     .experienceLevel(request.getExperienceLevel())
                     .createdAt(Instant.now())
-                    .expiresAt(Instant.now().plus(14, ChronoUnit.DAYS))
+                    .expiresAt(Instant.now().plus(1, ChronoUnit.DAYS))
                     .isRemote(request.isRemote())
                     .location(request.getLocation())
                     .postedAt(request.getPostedAt())
@@ -68,7 +69,10 @@ public class JobService {
     }
 
     public List<Job> getActiveJobsForDigest() {
-        return jobRepository.findByIsActiveTrueAndExpiresAtAfter(Instant.now());
+        return jobRepository.findByIsActiveTrueAndExpiresAtAfterOrderByFetchedAtDesc(Instant.now())
+                .stream()
+                .limit(80)
+                .collect(Collectors.toList());
     }
 
 
