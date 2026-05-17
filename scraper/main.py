@@ -18,7 +18,7 @@ def main():
     raw_jobs.extend(scrape_myjobmag())
     raw_jobs.extend(scrape_github())
     raw_jobs.extend(jobberman_scaper())
-    raw_jobs.extend(adzuna_scaper())
+
 
     normalized_jobs = [normalizer(job) for job in raw_jobs]
 
