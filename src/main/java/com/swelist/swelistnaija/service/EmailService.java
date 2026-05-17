@@ -56,6 +56,7 @@ public class EmailService {
                 .filter(job -> subscriber.getLocationPreference() == LocationPreference.ALL
                         || subscriber.getLocationPreference().name().equalsIgnoreCase(job.getCountry())
                         || (subscriber.getLocationPreference() == LocationPreference.REMOTE && job.isRemote()))
+                .limit(80)
                 .toList();
 
         if (filteredJobs.isEmpty()) {
